@@ -15,10 +15,10 @@ public class ProjectReiterSchiesserApplication {
 
     public static void main(String[] args) {
         // Verbindung zur MongoDB-Datenbank herstellen
-        try (MongoClient mongoClient = MongoClients.create("mongodb+srv://TestUser:123abc@mongotesting.o2v3bcw.mongodb.net/?retryWrites=true&w=majority")) {
+        try (MongoClient client = MongoClients.create("mongodb+srv://TestUser:123abc@mongotesting.o2v3bcw.mongodb.net/?retryWrites=true&w=majority")) {
 
             // Datenbank und Sammlung auswählen
-            MongoDatabase database = mongoClient.getDatabase("LehrerFachDb");
+            MongoDatabase database = client.getDatabase("LehrerFachDb");
             MongoCollection<Document> lehrerFachCollection = database.getCollection("LehrerFachCollection");
 
             // Beispiel: Lehrer hinzufügen
