@@ -28,7 +28,7 @@ public class LehrerController {
 
     @GetMapping("/hinzufuegen")
     public String lehrerHinzufuegenForm(Model model) {
-        model.addAttribute("lehrerDTO", new LehrerDTO());
+        model.addAttribute("lehrerDTO", new LehrerDTO(null,null,null));
         return "lehrerHinzufuegen";
     }
 
