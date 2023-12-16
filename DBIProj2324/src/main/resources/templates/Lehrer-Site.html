@@ -7,7 +7,7 @@
 <body>
 
     <div align="center">
-        <h1 th:text="${lehrer.name} + '-FachListe'"></h1>
+        <h1 th:text="${lehrer.name} + ' -FachListe'"></h1>
 
             <table align="center">
                 <tr>
@@ -15,8 +15,18 @@
                     <th align="center">Stunden</th>
                 </tr>
                 <tr th:each="fach : ${faecher}">
-                    <td align="center" th:text="${fach.name}"></td>
+                    <td align="center" th:text="${fach.FachName}"></td>
+                    <td align="center" th:text="${fach.unterrichtsstunden}"></td>
                 </tr>
+
+                <form action="#" th:action="@{/lehrer/{id}}" method="post">
+                    <tr>
+                        <td align="center"><input type="text" name="fachName" placeholder="Fachname"></td>
+                        <td align="center"><input type="number" name="unterrichtsstunden" placeholder="Stunden"></td>
+                        <td> <button type="submit">erstellen</button></td>
+                    </tr>
+                </form>
+
             </table>
 
     </div>

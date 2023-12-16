@@ -1,5 +1,6 @@
 package com.example.dbiproj2324.presentation;
 
+import com.example.dbiproj2324.Entities.Fach;
 import com.example.dbiproj2324.Entities.Lehrer;
 import com.example.dbiproj2324.service.LehrerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,23 +25,27 @@ public class LehrerController {
         return "AllLehrerSite";
     }
 
-//    @RequestMapping("/all")
-//    public String fillList(Model model)
-//    {
-//        return "AllLehrerSite";
-//    }
+    @PostMapping("/all")
+    public String fillList(@RequestParam("name") String name ,Model model)
+   {
+        Lehrer lehrer = new Lehrer(name, new ArrayList<>());
+        lehrerService.addLehrer(lehrer);
+        return "AllLehrerSite";
+    }
 
-    @GetMapping("/all" + "/{id}")
+    @GetMapping("/{id}")
     public String fillSite(@PathVariable String id, Model model)
     {
         model.addAttribute("lehrer", lehrerService.getLehrerById(id));
         model.addAttribute("faecher", lehrerService.getFaecherByLehrer(id));
-        return "LehrerSite";
+        return "Lehrer-Site";
     }
 
     @PostMapping("/{id}")
-    public String lehrerSpeichern(@RequestBody Lehrer lehrer, Model model) {
-        return "AllLehrerSite";
+    public String saveFach(@PathVariable String id, @RequestParam("fachName") String name, @RequestParam("unterrichtsstunden") Integer stunden, Model model) {
+        Fach fach = new Fach(name, stunden);
+        lehrerService.addFach(id, fach);
+        return "Lehrer-Site";
     }
 
 

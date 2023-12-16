@@ -1,4 +1,6 @@
 package com.example.dbiproj2324.Entities;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Fach {
 
     private String FachName;
-    private int unterrichtsstunden;
+    @NotNull(message = "Unterrichtsstunden is required")
+    @Min(value = 0, message = "Unterrichtsstunden must be a positive number")
+    private Integer unterrichtsstunden;
 
     public Fach(String FachName, int unterrichtsstunden) {
         this.FachName = FachName;
@@ -23,11 +27,11 @@ public class Fach {
         FachName = fachName;
     }
 
-    public int getUnterrichtsstunden() {
+    public Integer getUnterrichtsstunden() {
         return unterrichtsstunden;
     }
 
-    public void setUnterrichtsstunden(int unterrichtsstunden) {
+    public void setUnterrichtsstunden(Integer unterrichtsstunden) {
         this.unterrichtsstunden = unterrichtsstunden;
     }
 }

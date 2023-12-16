@@ -20,6 +20,7 @@ public class DbiProj2324Application {
     public static void main(String[] args) {
         SpringApplication.run(DbiProj2324Application.class, args);
 
+
     }
 
 }

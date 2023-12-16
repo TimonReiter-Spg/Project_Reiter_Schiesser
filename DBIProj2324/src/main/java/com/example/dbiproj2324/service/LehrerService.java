@@ -22,4 +22,6 @@ public interface LehrerService {
 
     public void deleteAll();
 
+    public void addFach(String id, Fach fach);
+
 }

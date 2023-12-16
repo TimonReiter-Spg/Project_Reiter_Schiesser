@@ -24,7 +24,7 @@ public class LehrerServiceImpl implements LehrerService {
 
     @Override
     public Lehrer getLehrerById(String id) {
-        return null;
+        return lehrerRepo.findById(id).get();
     }
 
     @Override
@@ -49,12 +49,22 @@ public class LehrerServiceImpl implements LehrerService {
     }
 
     @Override
-    public List<Fach> getFaecherByLehrer(String lehrer) {
-        return null;
+    public List<Fach> getFaecherByLehrer(String id) {
+        Lehrer lehrer = lehrerRepo.findById(id).get();
+        System.out.println(lehrer);
+        return lehrer.getFaecher();
     }
 
     @Override
     public void deleteAll() {
 
+    }
+
+    @Override
+    public void addFach(String id, Fach fach) {
+        Lehrer lehrer = lehrerRepo.findById(id).get();
+        lehrer.getFaecher().add(fach);
+        System.out.println(fach);
+        lehrerRepo.save(lehrer);
     }
 }
