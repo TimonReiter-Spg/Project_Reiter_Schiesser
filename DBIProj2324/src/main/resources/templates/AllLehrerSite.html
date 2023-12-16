@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>AllLehrerSite</title>
 </head>
 <body>
-
+    <div align="center">
+        <div>
+            <table>
+                <th align="center">Lehrer</th>
+                <tr th:each="lehrer : ${lehrer}">
+                    <td th:text="${lehrer.name}" align="center"></td>
+                    <td>    <a th:href="@{'/lehrer/' + ${lehrer._id}}">open</a> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

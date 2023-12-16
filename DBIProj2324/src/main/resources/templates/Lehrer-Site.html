@@ -9,22 +9,16 @@
     <div align="center">
         <h1 th:text="${lehrer.name} + '-FachListe'"></h1>
 
-        <form action="#" th:action="@{/lehrer}" th:object="${lehrer}" method="post">
-
-            <select th:field="*{Faecher}">
-                <option th:each="i : ${fach.allfaecher}" th:value="${fach.name}" th:text="${fach.name}">
-                </option>
-            </select>
-
-            <table>
+            <table align="center">
                 <tr>
                     <th align="center">Fachname</th>
+                    <th align="center">Stunden</th>
                 </tr>
                 <tr th:each="fach : ${faecher}">
                     <td align="center" th:text="${fach.name}"></td>
                 </tr>
             </table>
-        </form>
+
     </div>
 
 </body>

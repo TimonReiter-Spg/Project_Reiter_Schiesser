@@ -18,17 +18,19 @@ public class LehrerServiceImpl implements LehrerService {
 
     @Override
     public List<Lehrer> allLehrer() {
-        return null;
+        System.out.println(lehrerRepo.findAll());
+        return lehrerRepo.findAll();
     }
 
     @Override
-    public Lehrer getLehrerById(int id) {
+    public Lehrer getLehrerById(String id) {
         return null;
     }
 
     @Override
     public Lehrer addLehrer(Lehrer lehrer) {
-        return null;
+        System.out.println(lehrer);
+        return lehrerRepo.save(lehrer);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class LehrerServiceImpl implements LehrerService {
     }
 
     @Override
-    public void deleteLehrer(int id) {
+    public void deleteLehrer(String id) {
 
     }
 
@@ -49,5 +51,10 @@ public class LehrerServiceImpl implements LehrerService {
     @Override
     public List<Fach> getFaecherByLehrer(String lehrer) {
         return null;
+    }
+
+    @Override
+    public void deleteAll() {
+
     }
 }
