@@ -24,4 +24,6 @@ public interface LehrerService {
 
     public void addFach(String id, Fach fach);
 
+    public void deleteFach(String id, String fach);
+
 }

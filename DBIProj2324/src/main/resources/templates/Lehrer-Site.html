@@ -17,9 +17,10 @@
                 <tr th:each="fach : ${faecher}">
                     <td align="center" th:text="${fach.FachName}"></td>
                     <td align="center" th:text="${fach.unterrichtsstunden}"></td>
+                    <td align="center"> <a th:href="@{'/lehrer/' + ${id} + '/delete' + fach}">delete</a> </td>
                 </tr>
 
-                <form action="#" th:action="@{/lehrer/{id}}" method="post">
+                <form action="#" th:action="@{'/lehrer/' + ${id}}" method="post">
                     <tr>
                         <td align="center"><input type="text" name="fachName" placeholder="Fachname"></td>
                         <td align="center"><input type="number" name="unterrichtsstunden" placeholder="Stunden"></td>

@@ -12,6 +12,7 @@
                 <tr th:each="lehrer : ${lehrer}">
                     <td th:text="${lehrer.name}" align="center"></td>
                     <td>    <a th:href="@{'/lehrer/' + ${lehrer._id}}">open</a> </td>
+                    <td>    <a th:href="@{'/lehrer/delete/' + ${lehrer._id}}">delete</a> </td>
                 </tr>
             </table>
         </div>

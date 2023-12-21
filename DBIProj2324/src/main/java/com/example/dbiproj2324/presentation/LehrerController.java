@@ -30,7 +30,7 @@ public class LehrerController {
    {
         Lehrer lehrer = new Lehrer(name, new ArrayList<>());
         lehrerService.addLehrer(lehrer);
-        return "AllLehrerSite";
+        return "redirect:/lehrer/all";
     }
 
     @GetMapping("/{id}")
@@ -44,9 +44,21 @@ public class LehrerController {
     @PostMapping("/{id}")
     public String saveFach(@PathVariable String id, @RequestParam("fachName") String name, @RequestParam("unterrichtsstunden") Integer stunden, Model model) {
         Fach fach = new Fach(name, stunden);
+        System.out.println(fach);
         lehrerService.addFach(id, fach);
-        return "Lehrer-Site";
+        return "redirect:/lehrer/" + id;
     }
 
+    @GetMapping("/{id}" + "/delete/" + "{fach}")
+    public String deleteFach(@PathVariable String id, @PathVariable String fach) {
+        lehrerService.deleteFach(id, fach);
+        return "redirect:/lehrer/" + id;
+    }
+
+    @GetMapping("/delete/" + "{id}")
+    public String lehrerLoeschen(@PathVariable String id) {
+        lehrerService.deleteLehrer(id);
+        return "redirect:/lehrer/all";
+    }
 
 }

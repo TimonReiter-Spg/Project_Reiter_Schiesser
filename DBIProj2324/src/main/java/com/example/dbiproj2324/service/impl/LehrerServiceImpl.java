@@ -40,7 +40,7 @@ public class LehrerServiceImpl implements LehrerService {
 
     @Override
     public void deleteLehrer(String id) {
-
+        lehrerRepo.deleteById(id);
     }
 
     @Override
@@ -63,8 +63,24 @@ public class LehrerServiceImpl implements LehrerService {
     @Override
     public void addFach(String id, Fach fach) {
         Lehrer lehrer = lehrerRepo.findById(id).get();
-        lehrer.getFaecher().add(fach);
         System.out.println(fach);
+        List<Fach> faecher = lehrer.getFaecher();
+        faecher.add(fach);
+        lehrer.setFaecher(faecher);
+        lehrerRepo.save(lehrer);
+    }
+
+    @Override
+    public void deleteFach(String id, String fach) {
+        Lehrer lehrer = lehrerRepo.findById(id).get();
+        List<Fach> faecher = lehrer.getFaecher();
+        for (Fach f : faecher) {
+            if (f.getFachName().equals(fach)) {
+                faecher.remove(f);
+                break;
+            }
+        }
+        lehrer.setFaecher(faecher);
         lehrerRepo.save(lehrer);
     }
 }
