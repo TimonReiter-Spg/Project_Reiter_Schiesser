@@ -14,6 +14,8 @@ public class Fach {
     @Min(value = 0, message = "Unterrichtsstunden must be a positive number")
     private Integer unterrichtsstunden;
 
+    public Fach() {
+    }
     public Fach(String FachName, int unterrichtsstunden) {
         this.FachName = FachName;
         this.unterrichtsstunden = unterrichtsstunden;
@@ -33,5 +35,13 @@ public class Fach {
 
     public void setUnterrichtsstunden(Integer unterrichtsstunden) {
         this.unterrichtsstunden = unterrichtsstunden;
+    }
+
+    @Override
+    public String toString() {
+        return "Fach{" +
+                "fachName='" + FachName + '\'' +
+                ", unterrichtsstunden=" + unterrichtsstunden +
+                '}';
     }
 }

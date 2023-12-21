@@ -1,4 +1,5 @@
 package com.example.dbiproj2324;
+import ch.qos.logback.core.spi.AbstractComponentTracker;
 import com.example.dbiproj2324.Entities.Fach;
 import com.example.dbiproj2324.Entities.Lehrer;
 import com.example.dbiproj2324.service.LehrerService;
@@ -7,9 +8,15 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.MongoTemplate;
+
 
 import java.util.List;
 import java.util.Random;
@@ -22,8 +29,11 @@ public class LehrerServiceTest {
     private LehrerService lehrerService;
 
     private static final Logger logger = LoggerFactory.getLogger(LehrerServiceTest.class);
+    @Qualifier("mongoTemplate")
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
-    /*
+
     @Test
     @Order(0)
     public void testInsert100Lehrer() {
@@ -34,7 +44,7 @@ public class LehrerServiceTest {
 
         logger.info("Zeit für das Einfügen von 100 Lehrern: " + totalTime + " Millisekunden");
     }
-
+/*
     @Test
     @Order(1)
     public void testInsert1000Lehrer() {
@@ -84,11 +94,52 @@ public class LehrerServiceTest {
     }
 
 
+    @Test
+    @Order(5)
+    public void testFindWithFilterProjection(){
+long startTime = System.currentTimeMillis();
 
+    Lehrer test = new Lehrer("Docker-Dimon", List.of(new Fach("POS", 23)));
+    Lehrer test2 = new Lehrer("Patty", List.of(new Fach("PRE", 12)));
+        lehrerService.addLehrer(test);
+        lehrerService.addLehrer(test2);
+
+    Criteria criteria = Criteria.where("faecher.FachName").is("POS");
+    Query query = new Query(criteria);
+        query.fields().include("name");
+    List<Lehrer> lehrerList = mongoTemplate.find(query, Lehrer.class);
+
+    long endTime = System.currentTimeMillis();
+
+        logger.info("Lehrer: " + lehrerList + " Zeit: " + (endTime - startTime) + " Millisekunden");
+
+    }
+
+    @Test
+    @Order(6)
+    public void testFindWithFilterProjectionAndSort() {
+        long startTime = System.currentTimeMillis();
+
+        Lehrer test = new Lehrer("Josi", List.of(new Fach("POS", 20)));
+        Lehrer test2 = new Lehrer("Domas", List.of(new Fach("DBI", 20)));
+        lehrerService.addLehrer(test);
+        lehrerService.addLehrer(test2);
+
+        Criteria criteria = Criteria.where("faecher.unterrichtsstunden").is(20);
+        Query query = new Query(criteria);
+        query.fields().include("name", "faecher.FachName");
+        query.with(Sort.by(Sort.Order.asc("name")));
+        List<Lehrer> lehrerList = mongoTemplate.find(query, Lehrer.class);
+
+        long endTime = System.currentTimeMillis();
+
+        logger.info("Lehrer: " + lehrerList + " Zeit: " + (endTime - startTime) + " Millisekunden");
+
+    }
 
 
     @Test
-    @Order(5)
+    @Order(6)
     public void testUpdate(){
         long startTime = System.currentTimeMillis();
 
@@ -105,7 +156,7 @@ public class LehrerServiceTest {
 
 
     @Test
-    @Order(6)
+    @Order(7)
     public void testDeleteAll(){
         long startTime = System.currentTimeMillis();
         lehrerService.deleteAllLehrer();
