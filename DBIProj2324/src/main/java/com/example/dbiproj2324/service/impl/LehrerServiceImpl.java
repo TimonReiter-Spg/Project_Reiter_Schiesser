@@ -51,7 +51,7 @@ public class LehrerServiceImpl implements LehrerService {
     @Override
     public List<Fach> getFaecherByLehrer(String id) {
         Lehrer lehrer = lehrerRepo.findById(id).get();
-        System.out.println(lehrer);
+        System.out.println(lehrer.getFaecher());
         return lehrer.getFaecher();
     }
 
@@ -70,12 +70,16 @@ public class LehrerServiceImpl implements LehrerService {
         lehrerRepo.save(lehrer);
     }
 
+
     @Override
-    public void deleteFach(String id, String fach) {
+    public void deleteFach(String id, Fach fach) {
         Lehrer lehrer = lehrerRepo.findById(id).get();
         List<Fach> faecher = lehrer.getFaecher();
         for (Fach f : faecher) {
-            if (f.getFachName().equals(fach)) {
+            String Fachname = f.getFachName();
+            int unterrichtsstunden = f.getUnterrichtsstunden();
+            if (f.getFachName().equals(Fachname) &&
+                    f.getUnterrichtsstunden().equals(unterrichtsstunden)) {
                 faecher.remove(f);
                 break;
             }

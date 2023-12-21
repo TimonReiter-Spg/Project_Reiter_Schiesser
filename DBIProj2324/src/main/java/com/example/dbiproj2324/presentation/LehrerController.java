@@ -49,8 +49,10 @@ public class LehrerController {
         return "redirect:/lehrer/" + id;
     }
 
-    @GetMapping("/{id}" + "/delete/" + "{fach}")
-    public String deleteFach(@PathVariable String id, @PathVariable String fach) {
+    @GetMapping("/{id}/{fachName}/{unterrichtsstunden}/delete")
+    public String deleteFach(@PathVariable String id, @PathVariable String fachName, @PathVariable Integer unterrichtsstunden) {
+        Fach fach = new Fach(fachName, unterrichtsstunden);
+        System.out.println(fach);
         lehrerService.deleteFach(id, fach);
         return "redirect:/lehrer/" + id;
     }
