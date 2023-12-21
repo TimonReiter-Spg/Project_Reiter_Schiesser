@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class LehrerServiceImpl implements LehrerService {
@@ -18,7 +19,6 @@ public class LehrerServiceImpl implements LehrerService {
 
     @Override
     public List<Lehrer> allLehrer() {
-        System.out.println(lehrerRepo.findAll());
         return lehrerRepo.findAll();
     }
 
@@ -29,7 +29,6 @@ public class LehrerServiceImpl implements LehrerService {
 
     @Override
     public Lehrer addLehrer(Lehrer lehrer) {
-        System.out.println(lehrer);
         return lehrerRepo.save(lehrer);
     }
 
@@ -44,6 +43,11 @@ public class LehrerServiceImpl implements LehrerService {
     }
 
     @Override
+    public void deleteAllLehrer() {
+        lehrerRepo.deleteAll();
+    }
+
+    @Override
     public List<Lehrer> getLehrerByFach(String fach) {
         return null;
     }
@@ -51,7 +55,6 @@ public class LehrerServiceImpl implements LehrerService {
     @Override
     public List<Fach> getFaecherByLehrer(String id) {
         Lehrer lehrer = lehrerRepo.findById(id).get();
-        System.out.println(lehrer.getFaecher());
         return lehrer.getFaecher();
     }
 
@@ -87,4 +90,5 @@ public class LehrerServiceImpl implements LehrerService {
         lehrer.setFaecher(faecher);
         lehrerRepo.save(lehrer);
     }
+
 }

@@ -44,7 +44,6 @@ public class LehrerController {
     @PostMapping("/{id}")
     public String saveFach(@PathVariable String id, @RequestParam("fachName") String name, @RequestParam("unterrichtsstunden") Integer stunden, Model model) {
         Fach fach = new Fach(name, stunden);
-        System.out.println(fach);
         lehrerService.addFach(id, fach);
         return "redirect:/lehrer/" + id;
     }
@@ -52,7 +51,6 @@ public class LehrerController {
     @GetMapping("/{id}/{fachName}/{unterrichtsstunden}/delete")
     public String deleteFach(@PathVariable String id, @PathVariable String fachName, @PathVariable Integer unterrichtsstunden) {
         Fach fach = new Fach(fachName, unterrichtsstunden);
-        System.out.println(fach);
         lehrerService.deleteFach(id, fach);
         return "redirect:/lehrer/" + id;
     }

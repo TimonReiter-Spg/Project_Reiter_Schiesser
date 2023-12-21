@@ -16,6 +16,8 @@ public interface LehrerService {
 
     public void deleteLehrer(String id);
 
+    public void deleteAllLehrer();
+
     public List<Lehrer> getLehrerByFach(String fach);
 
     public List<Fach> getFaecherByLehrer(String lehrer);
